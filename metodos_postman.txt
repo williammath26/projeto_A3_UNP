@@ -13,3 +13,8 @@ DELETE	/delete_task/<task_id>	Deletar uma tarefa pelo ID.	http://localhost:5000/
 PUT	/edit_task/<task_id>	Editar uma tarefa pelo ID (alterando o nome).	http://localhost:5000/edit_task/1	Body (JSON): { "task": "Novo nome da tarefa" }
 
 POST	/complete_task/<task_id>	Marcar uma tarefa como concluída pelo ID.	http://localhost:5000/complete_task/1	-
+
+
+{
+    "task": "editada"
+}
