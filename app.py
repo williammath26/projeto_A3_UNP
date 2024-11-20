@@ -20,6 +20,15 @@ def index():
 def get_tasks():
     return jsonify({"tasks": tasks})
 
+# Rota para obter uma tarefa individual pelo ID
+@app.route('/task/<int:task_id>', methods=['GET'])
+def get_task(task_id):
+    task = next((task for task in tasks if task['id'] == task_id), None)
+    if task:
+        return jsonify({"task": task})
+    else:
+        return jsonify({"message": "Task not found"}), 404
+
 # Rota para adicionar uma tarefa
 @app.route('/add_task', methods=['POST'])
 def add_task():
