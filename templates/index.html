@@ -48,6 +48,8 @@
             success: function(data) {
                 alert("Tarefa adicionada!");
                 updateTaskLists(data.tasks);
+                // Limpar o campo de input após adicionar a tarefa
+                $("#task_name").val('');
             },
             error: function(error) {
                 alert("Erro ao adicionar tarefa.");
