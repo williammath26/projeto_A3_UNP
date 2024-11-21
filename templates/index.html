@@ -47,7 +47,7 @@
             data: JSON.stringify({task: task_name}),
             success: function(data) {
                 alert("Tarefa adicionada!");
-                location.reload();
+                updateTaskLists(data.tasks);
             },
             error: function(error) {
                 alert("Erro ao adicionar tarefa.");
@@ -62,7 +62,7 @@
             type: "POST",
             success: function(data) {
                 alert("Tarefa concluída!");
-                location.reload();
+                updateTaskLists(data.tasks);
             },
             error: function(error) {
                 alert("Erro ao concluir tarefa.");
@@ -81,7 +81,7 @@
                 data: JSON.stringify({task: new_name}),
                 success: function(data) {
                     alert("Tarefa editada!");
-                    location.reload();
+                    updateTaskLists(data.tasks);
                 },
                 error: function(error) {
                     alert("Erro ao editar tarefa.");
@@ -97,12 +97,32 @@
             type: "DELETE",
             success: function(data) {
                 alert("Tarefa deletada!");
-                location.reload();
+                updateTaskLists(data.tasks);
             },
             error: function(error) {
                 alert("Erro ao deletar tarefa.");
             }
         });
+    }
+
+    // Função para atualizar as listas de tarefas
+    function updateTaskLists(tasks) {
+        let pending_html = '';
+        let completed_html = '';
+        
+        tasks.forEach(function(task) {
+            if (task.completed) {
+                completed_html += `<li id="task_${task.id}" style="text-decoration: line-through;">${task.name}</li>`;
+            } else {
+                pending_html += `<li id="task_${task.id}">${task.name} 
+                <button onclick="completeTask(${task.id})">Concluir</button>
+                <button onclick="editTask(${task.id})">Editar</button>
+                <button onclick="deleteTask(${task.id})">Deletar</button></li>`;
+            }
+        });
+
+        $("#pending_tasks").html(pending_html);
+        $("#completed_tasks").html(completed_html);
     }
 </script>
 
