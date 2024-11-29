@@ -14,7 +14,7 @@ POST	/complete_task/<task_id>	Marcar uma tarefa como concluída pelo ID.	http://
 
 
 
-http://127.0.0.1:5000/login - Insira o email user@example.com e a senha password123 para fazer o login.
+http://127.0.0.1:5000/login - Insira o email admin@example.com e a senha password123 para fazer o login.
 
 
 {
