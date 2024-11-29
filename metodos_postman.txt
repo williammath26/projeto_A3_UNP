@@ -10,7 +10,7 @@ Envie um POST para http://127.0.0.1:5000/login -
 GET	/tasks	Ver todas as tarefas (pendentes e concluídas).	http://127.0.0.1:5000/api/tasks	-
 
 
-GET	/task/<task_id>	Ver uma tarefa específica com base no ID fornecido.	http://localhost:5000/task/1	-
+GET	/task/<task_id>	Ver uma tarefa específica com base no ID fornecido.	http://127.0.0.1:5000/api/task/1	-
 
 POST	/add_task	Adicionar uma nova tarefa.	http://127.0.0.1:5000/add_task
 

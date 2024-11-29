@@ -149,6 +149,21 @@ def get_tasks():
     
     return jsonify(tasks)
 
+# Rota para obter uma tarefa específica (API, JSON)
+@app.route('/api/task/<int:task_id>', methods=['GET'])
+@login_required
+def get_task(task_id):
+    task = Task.query.get(task_id)
+    if task:
+        task_data = {
+            "id": task.id,
+            "name": task.name,
+            "completed": task.completed
+        }
+        return jsonify(task_data), 200
+    else:
+        return jsonify({"message": "Tarefa não encontrada!"}), 404
+
 # Iniciar o servidor Flask
 if __name__ == '__main__':
     app.run(debug=True)
