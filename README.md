@@ -1,61 +1,70 @@
-# Gerenciador de Tarefas com Flask
+# TodoList - Aplicação de Gerenciamento de Tarefas
 
-Este é um aplicativo web simples de gerenciamento de tarefas, desenvolvido com o **Flask**, um micro framework para Python. O aplicativo permite adicionar, editar, concluir e excluir tarefas de uma lista.
+Este é um aplicativo simples de **gerenciamento de tarefas** (To-Do List), onde os usuários podem adicionar, editar, excluir, concluir e visualizar suas tarefas. Ele foi desenvolvido utilizando **Flask**, um framework web em Python, e **MySQL** como banco de dados para armazenar as tarefas e informações dos usuários.
+
+## Tecnologias Usadas
+
+- **Flask**: Framework web para Python usado para criar o backend da aplicação.
+- **Flask-Login**: Extensão para gerenciamento de login e autenticação de usuários.
+- **SQLAlchemy**: ORM (Object-Relational Mapper) para interagir com o banco de dados MySQL.
+- **Werkzeug**: Biblioteca de segurança para hash de senhas.
+- **MySQL**: Banco de dados relacional utilizado para armazenar as informações de usuários e tarefas.
 
 ## Funcionalidades
 
-- **Visualizar Tarefas**: Exibe as tarefas pendentes e concluídas separadas.
-- **Adicionar Tarefas**: Adicione novas tarefas através de um formulário.
-- **Editar Tarefas**: Modifique o nome de uma tarefa existente.
-- **Concluir Tarefas**: Marque uma tarefa como concluída.
-- **Excluir Tarefas**: Remova uma tarefa da lista.
+- **Login e Logout**: O usuário pode fazer login utilizando o email e senha fixos definidos no código. Após login, pode adicionar, editar, excluir, e concluir tarefas.
+- **Gerenciamento de Tarefas**:
+  - Adicionar novas tarefas.
+  - Editar tarefas existentes.
+  - Excluir tarefas.
+  - Concluir tarefas (marcar como concluídas).
+- **Visualizar Tarefas**: Exibição de tarefas pendentes e concluídas tanto na web quanto via API.
 
-## Tecnologias Utilizadas
+## Banco de Dados
 
-- **Python 3.9+**
-- **Flask**: Framework para criação do backend.
-- **HTML/CSS**: Para a estrutura e estilo da página.
-- **JavaScript (jQuery)**: Para interações dinâmicas com o frontend via AJAX.
+O banco de dados utilizado é **MySQL** e o esquema de tabelas é o seguinte:
 
-## Como Rodar o Projeto
+- **Tabela `users`**: Armazena as informações de login do usuário (apenas um usuário fixo no código).
+- **Tabela `tasks`**: Armazena as tarefas, com campos:
+  - `id`: Identificador único da tarefa.
+  - `name`: Nome/descrição da tarefa.
+  - `completed`: Indica se a tarefa foi concluída (booleano).
 
-### Pré-requisitos
+### Estrutura do Banco de Dados
 
-- **Python 3.9** ou superior
-- **Pip** para instalar dependências
+```sql
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL
+);
 
-### Passos para Instalar e Rodar
+CREATE TABLE tasks (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    completed BOOLEAN DEFAULT FALSE
+);
 
-1. **Clone o repositório**:
+## Configuração e Execução
 
-   No terminal, execute o seguinte comando:
-   ```bash
-   git clone <url-do-repositório>
-Instale as dependências:
+### Requisitos
 
-Navegue até o diretório do projeto e instale as dependências com o pip:
+- **Python 3.x**: O ambiente de desenvolvimento deve ter o Python 3.x instalado.
+- **MySQL**: Instale e configure o MySQL, criando o banco de dados chamado `tarefas` e conectando-o ao aplicativo Flask.
+- **Bibliotecas**: Instale as dependências do projeto utilizando o `pip`:
 
-bash
-Copiar código
 ```bash
-cd nome-do-diretorio
 pip install -r requirements.txt
+Flask
+Flask-Login
+Flask-SQLAlchemy
+Werkzeug
+pymysql
 ```
-Execute o servidor Flask:
-
-No terminal, execute o comando:
+## EXECUTE O PROJETO
 ```bash
 python app.py
 ```
-O servidor estará disponível em http://127.0.0.1:5000/.
 
-Acesse no Navegador:
-
-Após rodar o servidor, abra seu navegador e acesse o endereço http://127.0.0.1:5000/ para interagir com a aplicação.
-
-### Explicação das seções:
-
-- **Instalar as dependências**: Ensina como clonar o repositório e instalar as dependências com `pip install -r requirements.txt`.
-- **Rodar o servidor Flask**: Passos para rodar a aplicação localmente com `python app.py`.
-- **Licença**: O projeto está sob a licença **MIT**.
-
+Este projeto fornece uma maneira simples e prática de gerenciar tarefas com funcionalidades como login, adição, edição, exclusão e conclusão de tarefas. Ele utiliza Flask como backend, MySQL como banco de dados e pode ser facilmente testado via Postman para interação com a API
