@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, render_template
-from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 
@@ -62,12 +62,6 @@ def login():
             return jsonify({"message": "Senha incorreta"}), 401
     else:
         return jsonify({"message": "Usuário não encontrado"}), 401
-@login_manager.user_loader
-def load_user(user_id):
-    if user.id == int(user_id):
-        print("Usuário autenticado com sucesso!")  # Debug
-        return user
-    return None
 
 # Rota de Logout
 @app.route('/logout', methods=['POST'])
@@ -76,15 +70,15 @@ def logout():
     logout_user()
     return jsonify({"message": "Logout bem-sucedido!"}), 200
 
-# Rota inicial - Exibe as tarefas pendentes e concluídas
-@app.route('/')
+# Rota inicial - Exibe as tarefas pendentes e concluídas (WEB)
+@app.route('/', methods=['GET'])
 @login_required
 def index():
     pending_tasks = Task.query.filter_by(completed=False).all()
     completed_tasks = Task.query.filter_by(completed=True).all()
     return render_template('index.html', pending_tasks=pending_tasks, completed_tasks=completed_tasks)
 
-# Rota para adicionar uma tarefa
+# Rota para adicionar uma tarefa (API)
 @app.route('/add_task', methods=['POST'])
 @login_required
 def add_task():
@@ -99,7 +93,7 @@ def add_task():
     else:
         return jsonify({"message": "O nome da tarefa é obrigatório!"}), 400
 
-# Rota para editar uma tarefa
+# Rota para editar uma tarefa (API)
 @app.route('/edit_task/<int:task_id>', methods=['PUT'])
 @login_required
 def edit_task(task_id):
@@ -117,7 +111,7 @@ def edit_task(task_id):
     else:
         return jsonify({"message": "O nome da tarefa é obrigatório!"}), 400
 
-# Rota para deletar uma tarefa
+# Rota para deletar uma tarefa (API)
 @app.route('/delete_task/<int:task_id>', methods=['DELETE'])
 @login_required
 def delete_task(task_id):
@@ -129,7 +123,7 @@ def delete_task(task_id):
     else:
         return jsonify({"message": "Tarefa não encontrada!"}), 404
 
-# Rota para concluir uma tarefa
+# Rota para concluir uma tarefa (API)
 @app.route('/complete_task/<int:task_id>', methods=['POST'])
 @login_required
 def complete_task(task_id):
@@ -140,6 +134,20 @@ def complete_task(task_id):
         return jsonify({"message": "Tarefa concluída!"}), 200
     else:
         return jsonify({"message": "Tarefa não encontrada!"}), 404
+
+# Rota para obter todas as tarefas (API, JSON)
+@app.route('/api/tasks', methods=['GET'])
+@login_required
+def get_tasks():
+    pending_tasks = Task.query.filter_by(completed=False).all()
+    completed_tasks = Task.query.filter_by(completed=True).all()
+
+    tasks = {
+        "pending_tasks": [{"id": task.id, "name": task.name, "completed": task.completed} for task in pending_tasks],
+        "completed_tasks": [{"id": task.id, "name": task.name, "completed": task.completed} for task in completed_tasks]
+    }
+    
+    return jsonify(tasks)
 
 # Iniciar o servidor Flask
 if __name__ == '__main__':
