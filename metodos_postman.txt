@@ -1,20 +1,41 @@
 Método	Rota	Descrição	Exemplo de URL	Body (se necessário)
 
-GET	/tasks	Ver todas as tarefas (pendentes e concluídas).	http://localhost:5000/tasks	-
+Envie um POST para http://127.0.0.1:5000/login - 
+{
+  "email": "admin@example.com",
+  "password": "password123"
+}
 
-GET	/task/<task_id>	Ver uma tarefa específica com base no ID fornecido.	http://localhost:5000/task/1	-
 
-GET	/completed_tasks	Ver todas as tarefas concluídas.	http://localhost:5000/completed_tasks	-
+GET	/tasks	Ver todas as tarefas (pendentes e concluídas).	http://127.0.0.1:5000/api/tasks	-
 
-POST	/add_task	Adicionar uma nova tarefa.	http://localhost:5000/add_task	Body (JSON): { "task": "Nova tarefa" }
 
-DELETE	/delete_task/<task_id>	Deletar uma tarefa pelo ID.	http://localhost:5000/delete_task/1	-
+GET	/task/<task_id>	Ver uma tarefa específica com base no ID fornecido.	http://127.0.0.1:5000/api/task/1	-
 
-PUT	/edit_task/<task_id>	Editar uma tarefa pelo ID (alterando o nome).	http://localhost:5000/edit_task/1	Body (JSON): { "task": "Novo nome da tarefa" }
+POST	/add_task	Adicionar uma nova tarefa.	http://127.0.0.1:5000/add_task
+
+{
+  "task": "Nova tarefa"
+}
+
+
+DELETE	/delete_task/<task_id>	Deletar uma tarefa pelo ID.	http://127.0.0.1:5000/delete_task/1	-
+
+
+PUT	/edit_task/<task_id>	Editar uma tarefa pelo ID (alterando o nome).	http://127.0.0.1:5000/edit_task/1	
+{
+  "task": "Nova tarefa editada"
+}
+
 
 POST	/complete_task/<task_id>	Marcar uma tarefa como concluída pelo ID.	http://localhost:5000/complete_task/1	-
+
+
+
+http://127.0.0.1:5000/login - Insira o email admin@example.com e a senha password123 para fazer o login.
 
 
 {
     "task": "editada"
 }
+
