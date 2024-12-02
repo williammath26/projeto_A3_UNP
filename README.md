@@ -30,32 +30,17 @@ O banco de dados utilizado é **MySQL** e o esquema de tabelas é o seguinte:
   - `name`: Nome/descrição da tarefa.
   - `completed`: Indica se a tarefa foi concluída (booleano).
 
-### Estrutura do Banco de Dados
-
-```sql
-CREATE TABLE users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    password VARCHAR(255) NOT NULL
-);
-
-CREATE TABLE tasks (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    completed BOOLEAN DEFAULT FALSE
-);
-
 ## Configuração e Execução
 
 ### Requisitos
 
-- **Python 3.x**: O ambiente de desenvolvimento deve ter o Python 3.x instalado.
+- **Python 3.9: O ambiente de desenvolvimento deve ter o Python 3.9 ou mais atualizado instalado.
 - **MySQL**: Instale e configure o MySQL, criando o banco de dados chamado `tarefas` e conectando-o ao aplicativo Flask.
 - **Bibliotecas**: Instale as dependências do projeto utilizando o `pip`:
+- - **Requirements**: No projeto tem o arquivo requirements.txt , rode o comendo , ```bash pip install -r requirements.txt```
+:
 
 ```bash
-pip install -r requirements.txt
 Flask
 Flask-Login
 Flask-SQLAlchemy
